@@ -66,49 +66,16 @@ if (!function_exists('e')) {
                     if ($berita && mysqli_num_rows($berita) > 0) {
                         while ($row = mysqli_fetch_assoc($berita)):
                 ?>
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group" data-aos="fade-up">
-                            
-                            <a href="detail_berita.php?id=<?= $row['id'] ?>" class="block relative h-56 overflow-hidden bg-gray-100">
-                                <?php if (!empty($row['gambar'])): ?>
-                                    <img src="admin/<?= htmlspecialchars($row['gambar']) ?>" alt="<?= e($row['judul']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <?php else: ?>
-                                    <div class="w-full h-full flex flex-col items-center justify-center text-gray-400">
-                                        <i class='bx bx-image text-4xl mb-1'></i>
-                                        <span class="text-xs font-medium">Tanpa Gambar</span>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
-                            </a>
-                            
-                            <div class="p-6 flex flex-col flex-grow">
-                                <div class="text-xs font-bold text-emerald-600 mb-3 uppercase tracking-wider">Informasi Publik</div>
-                                
-                                <a href="detail_berita.php?id=<?= $row['id'] ?>" class="block mb-4 flex-grow">
-                                    <h2 class="text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors line-clamp-3 leading-snug">
-                                        <?= e($row['judul']) ?>
-                                    </h2>
-                                </a>
-                                
-                                <div class="mt-auto pt-4 border-t border-gray-50">
-                                    <a href="detail_berita.php?id=<?= $row['id'] ?>" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white px-5 py-2.5 rounded-xl font-semibold transition-colors duration-300">
-                                        Baca Selengkapnya <i class='bx bx-right-arrow-alt text-lg'></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                <?php 
-                        endwhile;
-                    } else {
-                        // Jika belum ada berita di database
-                        echo '<div class="col-span-full bg-white rounded-2xl border border-dashed border-gray-300 p-12 flex flex-col items-center justify-center text-gray-500" data-aos="fade-up">
-                                <i class="bx bx-news text-6xl mb-4 text-gray-300"></i>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada Berita</h3>
-                                <p class="text-center">Kabar dan informasi terbaru akan segera hadir di halaman ini.</p>
-                              </div>';
-                    }
-                }
-                ?>
+                <div class="w-full bg-white border border-gray-200 rounded-lg shadow transition hover:scale-105 hover:shadow-lg flex-shrink-0">
+                    <?php if ($row['gambar']) echo '<a href="detail_berita.php?id=' . $row['id'] . '"><img class="rounded-t-lg w-full h-48 object-cover" src="admin/' . htmlspecialchars($row['gambar']) . '" alt="' . htmlspecialchars($row['judul']) . '" /></a>'; ?>
+                    <div class="p-5 flex flex-col">
+                        <a href="detail_berita.php?id=<?= $row['id'] ?>">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-green-600 text-left"><?= htmlspecialchars($row['judul']) ?></h5>
+                        </a>
+                        <a href="detail_berita.php?id=<?= $row['id'] ?>" class="mt-auto inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Baca Selengkapnya</a>
+                    </div>
+                </div>
+                <?php endwhile; ?>
             </div>
 
         </div>

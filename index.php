@@ -176,41 +176,16 @@
                         if ($berita && mysqli_num_rows($berita) > 0) {
                             while ($row = mysqli_fetch_assoc($berita)):
                 ?>
-                            <div class="min-w-[85vw] sm:min-w-[320px] md:min-w-0 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col snap-center group">
-                                <div class="relative h-56 overflow-hidden rounded-t-2xl">
-                                    <?php if (!empty($row['gambar'])): ?>
-                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="admin/<?= htmlspecialchars($row['gambar']) ?>" alt="<?= htmlspecialchars($row['judul']) ?>" />
-                                    <?php else: ?>
-                                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400"><i class='bx bx-image text-5xl'></i></div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="p-6 flex flex-col flex-1">
-                                    <div class="text-xs font-semibold text-green-600 mb-3 uppercase tracking-wider">Kabar Desa</div>
-                                    <a href="detail_berita.php?id=<?= $row['id'] ?>" class="block mb-4">
-                                        <h5 class="text-xl font-bold leading-snug text-gray-900 group-hover:text-green-600 transition-colors line-clamp-2"><?= htmlspecialchars($row['judul']) ?></h5>
-                                    </a>
-                                    
-                                    <div class="mt-auto pt-4 border-t border-gray-50">
-                                        <a href="detail_berita.php?id=<?= $row['id'] ?>" class="inline-flex items-center justify-center gap-2 w-full px-5 py-2.5 bg-gray-50 text-gray-700 font-semibold rounded-xl group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
-                                            Baca Selengkapnya
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                <?php 
-                            endwhile; 
-                        } else {
-                            echo '<div class="col-span-3 text-center py-10 text-gray-500 bg-gray-50 rounded-2xl border border-dashed border-gray-200">Belum ada berita yang dipublikasikan.</div>';
-                        }
-                    }
-                }
-                ?>
-            </div>
-            
-            <div class="mt-4 text-center md:hidden">
-                <a href="berita.php" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl shadow-sm hover:bg-gray-50 w-full">
-                    Lihat Semua Berita
-                </a>
+                <div class="w-full bg-white border border-gray-200 rounded-lg shadow transition hover:scale-105 hover:shadow-lg flex-shrink-0">
+                    <?php if ($row['gambar']) echo '<a href="detail_berita.php?id=' . $row['id'] . '"><img class="rounded-t-lg w-full h-48 object-cover" src="admin/' . htmlspecialchars($row['gambar']) . '" alt="' . htmlspecialchars($row['judul']) . '" /></a>'; ?>
+                    <div class="p-5 flex flex-col">
+                        <a href="detail_berita.php?id=<?= $row['id'] ?>">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-green-600 text-left"><?= htmlspecialchars($row['judul']) ?></h5>
+                        </a>
+                        <a href="detail_berita.php?id=<?= $row['id'] ?>" class="mt-auto inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Baca Selengkapnya</a>
+                    </div>
+                </div>
+                <?php endwhile; ?>
             </div>
         </div>
     </section>
