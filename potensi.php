@@ -1,186 +1,187 @@
+<?php
+// Error reporting untuk development
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Helper function untuk keamanan XSS
+if (!function_exists('e')) {
+    function e($string) {
+        return htmlspecialchars($string ?? '', ENT_QUOTES, 'UTF-8');
+    }
+}
+?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Potensi Desa Demung</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Potensi Desa | Desa Demung</title>
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { fontFamily: { sans: ['Inter', 'sans-serif'], } }
+            }
+        }
+    </script>
+    
+    <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
 </head>
 
-<body class="bg-gray-50">
-  <?php include 'koneksi.php'; ?>
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-green-200 selection:text-green-900 flex flex-col min-h-screen">
+    
+    <?php 
+    if (file_exists('koneksi.php')) { include 'koneksi.php'; }
+    if (file_exists('header.php')) { include 'header.php'; } 
+    ?>
 
-    <header class="header bg-white shadow sticky top-0 z-50">
-        <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <div class="flex items-center gap-3">
-                <img src="logo.svg" alt="Logo Desa Demung" class="h-12 w-12 rounded-full">
-                <a href="#" class="logo text-2xl font-bold text-green-700">Desa Demung</a>
-            </div>
-            <!-- Hamburger -->
-            <button id="navbar-toggle" type="button"
-                class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none"
-                aria-controls="navbar" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <i class='bx bx-menu text-2xl'></i>
-            </button>
-            <!-- Navbar -->
-            <nav id="navbar" class="fixed md:static top-0 left-0 w-full md:w-auto h-full md:h-auto bg-white md:bg-transparent flex-col md:flex-row gap-6 items-start md:items-center px-8 md:px-0 py-24 md:py-0 hidden md:flex transition-all z-40 md:z-auto">
-                <a href="index.php">Beranda</a>
-                <div class="relative group w-full md:w-auto">
-                    <button type="button" id="profilDropdownBtn" class="flex items-center gap-1 w-full md:w-auto py-2 md:py-0 focus:outline-none" aria-expanded="false">
-                        Profil Desa <i id="chevronIcon" class='bx bx-chevron-down transition-transform duration-200'></i>
-                    </button>
-                    <div id="profilDropdown" class="absolute md:absolute left-0 md:mt-2 mt-1 w-11/12 md:w-48 bg-white rounded shadow-lg opacity-0 pointer-events-none transition z-20 border border-gray-100 md:border-none mx-auto md:mx-0" style="right:0;left:0;">
-                        <a href="sejarah.php" class="block px-4 py-2 hover:bg-gray-100">Sejarah Desa</a>
-                        <a href="visi.php" class="block px-4 py-2 hover:bg-gray-100">Visi & Misi</a>
-                        <a href="perangkat.php" class="block px-4 py-2 hover:bg-gray-100">Perangkat Desa</a>
-                    </div>
+    <main class="flex-grow pt-8 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="mb-16 text-center" data-aos="fade-down">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold mb-4 tracking-wide uppercase">
+                    <i class='bx bxs-star'></i> Unggulan Desa
                 </div>
-                <a href="potensi.php" class="text-green-700 font-semibold">Potensi Desa</a>
-                <a href="berita.php">Berita</a>
-                <a href="kontak.php">Kontak</a>
-                <a href="admin/login.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Login</a>
-            </nav>
-            <!-- Overlay for mobile -->
-            <div id="navbar-overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden md:hidden"></div>
-        </div>
-    </header>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Potensi Desa Demung</h1>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">Mengenal lebih dekat kekayaan alam, destinasi wisata, dan produk unggulan karya inovatif masyarakat lokal.</p>
+            </div>
 
-  <section class="py-16 bg-green-50 min-h-screen" data-aos="fade-up">
-    <div class="container mx-auto px-6">
-      <h1 class="text-3xl font-bold text-green-700 mb-8 text-center">Potensi Desa Demung</h1>
-      <h2 class="text-2xl font-semibold text-green-600 mb-6 text-center">UMKM Unggulan</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <?php 
-        $produk = mysqli_query($conn, "SELECT * FROM produk ORDER BY id DESC");
-        while ($row = mysqli_fetch_assoc($produk)):
-        ?>
-        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center transition hover:scale-105 hover:shadow-lg" data-aos="zoom-in">
-          <?php if ($row['foto']) echo '<img src="admin/' . htmlspecialchars($row['foto']) . '" alt="' . htmlspecialchars($row['nama']) . '" class="w-24 h-24 object-cover rounded mb-4">'; ?>
-          <h3 class="text-lg font-semibold mb-2 text-green-700 text-center"><?= htmlspecialchars($row['nama']) ?></h3>
-          <h4 class="text-1xl font-semibold mb-3 text-green-700 text-center"><?= htmlspecialchars($row['alamat']) ?></h4>
-          <p class="text-gray-600 text-center mb-2"><?= htmlspecialchars($row['deskripsi']) ?></p>
-          <a href="https://wa.me/<?= htmlspecialchars($row['nomor_wa']) ?>" target="_blank" class="inline-block bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"><i class='bx bxl-whatsapp'></i> Hubungi via WA</a>
+            <section class="mb-20" data-aos="fade-up">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center text-xl">
+                        <i class='bx bxs-store-alt'></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900">UMKM & Produk Lokal</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <?php 
+                    if (isset($conn)) {
+                        $produk = mysqli_query($conn, "SELECT * FROM produk ORDER BY id DESC");
+                        if ($produk && mysqli_num_rows($produk) > 0) {
+                            while ($row = mysqli_fetch_assoc($produk)):
+                    ?>
+                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
+                                <div class="relative h-56 w-full overflow-hidden rounded-xl mb-5 bg-gray-100">
+                                    <?php if (!empty($row['foto'])): ?>
+                                        <img src="admin/<?= htmlspecialchars($row['foto']) ?>" alt="<?= e($row['nama']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <?php else: ?>
+                                        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                                            <i class='bx bx-image text-4xl mb-1'></i>
+                                            <span class="text-xs font-medium">Tanpa Foto</span>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <div class="flex flex-col flex-grow">
+                                    <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-emerald-600 transition-colors"><?= e($row['nama']) ?></h3>
+                                    <p class="text-sm font-medium text-emerald-600 mb-3 flex items-start gap-1">
+                                        <i class='bx bxs-map mt-0.5'></i> <?= e($row['alamat']) ?>
+                                    </p>
+                                    <p class="text-gray-500 text-sm mb-6 leading-relaxed flex-grow line-clamp-3">
+                                        <?= e($row['deskripsi']) ?>
+                                    </p>
+                                    
+                                    <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $row['nomor_wa']) ?>" target="_blank" class="w-full flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white py-3 rounded-xl font-semibold transition-colors duration-300">
+                                        <i class='bx bxl-whatsapp text-xl'></i> Hubungi Penjual
+                                    </a>
+                                </div>
+                            </div>
+                    <?php 
+                            endwhile;
+                        } else {
+                            echo '<div class="col-span-full bg-gray-50 rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-500">Belum ada data UMKM yang diinputkan.</div>';
+                        }
+                    }
+                    ?>
+                </div>
+            </section>
+
+            <section data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
+                        <i class='bx bxs-landscape'></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900">Destinasi Wisata</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <?php 
+                    if (isset($conn)) {
+                        $wisata = mysqli_query($conn, "SELECT * FROM wisata ORDER BY id DESC");
+                        if ($wisata && mysqli_num_rows($wisata) > 0) {
+                            while ($row = mysqli_fetch_assoc($wisata)):
+                    ?>
+                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
+                                <div class="relative h-64 w-full overflow-hidden bg-gray-100">
+                                    <?php if (!empty($row['foto'])): ?>
+                                        <img src="admin/<?= htmlspecialchars($row['foto']) ?>" alt="<?= e($row['nama']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-80"></div>
+                                    <?php else: ?>
+                                        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                                            <i class='bx bx-image text-4xl mb-1'></i>
+                                            <span class="text-xs font-medium">Tanpa Foto</span>
+                                        </div>
+                                    <?php endif; ?>
+                                    
+                                    <h3 class="absolute bottom-4 left-5 right-5 text-xl font-bold text-white drop-shadow-md">
+                                        <?= e($row['nama']) ?>
+                                    </h3>
+                                </div>
+                                
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <p class="text-gray-500 text-sm leading-relaxed">
+                                        <?= e($row['deskripsi']) ?>
+                                    </p>
+                                </div>
+                            </div>
+                    <?php 
+                            endwhile;
+                        } else {
+                            echo '<div class="col-span-full bg-gray-50 rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-500">Belum ada data destinasi wisata yang diinputkan.</div>';
+                        }
+                    }
+                    ?>
+                </div>
+            </section>
+
         </div>
-        <?php endwhile; ?>
-      </div>
-      <h2 class="text-2xl font-semibold text-green-600 mb-6 text-center">Wisata Desa</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <?php 
-        $wisata = mysqli_query($conn, "SELECT * FROM wisata ORDER BY id DESC");
-        while ($row = mysqli_fetch_assoc($wisata)):
-        ?>
-        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center transition hover:scale-105 hover:shadow-lg" data-aos="zoom-in">
-          <?php if ($row['foto']) echo '<img src="admin/' . htmlspecialchars($row['foto']) . '" alt="' . htmlspecialchars($row['nama']) . '" class="w-24 h-24 object-cover rounded mb-4">'; ?>
-          <h3 class="text-lg font-semibold mb-2 text-green-700 text-center"><?= htmlspecialchars($row['nama']) ?></h3>
-          <p class="text-gray-600 text-center mb-2"><?= htmlspecialchars($row['deskripsi']) ?></p>
-        </div>
-        <?php endwhile; ?>
-      </div>
-    </div>
-  </section>
-<footer class="bg-green-700 text-white py-8 mt-12">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <span class="font-bold">Desa Demung</span> &copy; <?= date('Y') ?>. KKN UNIVERSITAS NURUL JADID 25.
+    </main>
+
+    <footer class="bg-gray-900 text-gray-300 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <h3 class="text-white font-bold text-xl mb-1">Desa Demung</h3>
+                <p class="text-sm text-gray-400">Transparansi dan Akuntabilitas Menuju Desa Mandiri.</p>
+            </div>
+            <div class="text-sm text-gray-400 text-center">
+                &copy; <?= date('Y') ?> Pemerintah Desa Demung.<br class="md:hidden"> Didukung oleh KKN UNIVERSITAS NURUL JADID 25.
             </div>
             <div class="flex gap-4">
-                <a href="https://www.tiktok.com/@pemdes.demung?_t=ZS-8xjZ94umTDu&_r=1" class="hover:text-green-200"><i class='bx bxl-tiktok'></i></a>
-                <a href="https://www.instagram.com/demung_creative?igsh=MTZtc2pjdDM0bHpnYQ==" class="hover:text-green-200"><i class='bx bxl-instagram'></i></a>
+                <a href="https://www.tiktok.com/@pemdes.demung?_t=ZS-8xjZ94umTDu&_r=1" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-gray-900 transition-colors text-xl"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://www.instagram.com/demung_creative?igsh=MTZtc2pjdDM0bHpnYQ==" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-gray-900 transition-colors text-xl"><i class='bx bxl-instagram'></i></a>
             </div>
         </div>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-        // Navbar mobile toggle
-        const navbarToggle = document.getElementById('navbar-toggle');
-        const navbar = document.getElementById('navbar');
-        const overlay = document.getElementById('navbar-overlay');
-
-        navbarToggle.addEventListener('click', () => {
-            const isOpen = navbar.classList.contains('flex');
-            if (!isOpen) {
-                navbar.classList.remove('hidden');
-                navbar.classList.add('flex');
-                overlay.classList.remove('hidden');
-            } else {
-                navbar.classList.remove('flex');
-                navbar.classList.add('hidden');
-                overlay.classList.add('hidden');
-            }
-        });
-        overlay.addEventListener('click', () => {
-            navbar.classList.remove('flex');
-            navbar.classList.add('hidden');
-            overlay.classList.add('hidden');
-        });
-        // Close navbar on link click (mobile)
-        navbar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            });
-        });
-        // Dropdown Profil Desa
-        const profilBtn = document.getElementById('profilDropdownBtn');
-        const profilDropdown = document.getElementById('profilDropdown');
-        const chevronIcon = document.getElementById('chevronIcon');
-        let dropdownOpen = false;
-
-        function openDropdown() {
-            profilDropdown.classList.remove('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.add('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.add('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'true');
-            dropdownOpen = true;
+        // Init Animation
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true, offset: 50 });
         }
-        function closeDropdown() {
-            profilDropdown.classList.add('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.remove('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.remove('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'false');
-            dropdownOpen = false;
-        }
-        function toggleDropdown(e) {
-            e.stopPropagation();
-            dropdownOpen ? closeDropdown() : openDropdown();
-        }
-        // Event handler universal (mobile & desktop)
-        profilBtn.onclick = toggleDropdown;
-        chevronIcon.onclick = toggleDropdown;
-        // Close dropdown if click outside
-        window.addEventListener('click', (e) => {
-            if (dropdownOpen && !profilDropdown.contains(e.target) && !profilBtn.contains(e.target)) {
-                closeDropdown();
-            }
-        });
-        // Close dropdown after pilih menu
-        profilDropdown.querySelectorAll('a').forEach(link => {
-            link.onclick = () => {
-                closeDropdown();
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            };
-        });
-        // Responsive: tutup dropdown saat resize
-        window.addEventListener('resize', () => {
-            closeDropdown();
-        });
-        AOS.init();
     </script>
-
 </body>
-
 </html>

@@ -1,174 +1,151 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visi & Misi Desa Demung</title>
+    <title>Visi & Misi | Desa Demung</title>
+    
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], } } }
+        }
+    </script>
+    
     <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-emerald-200 selection:text-emerald-900 flex flex-col min-h-screen">
 
-    <header class="header bg-white shadow sticky top-0 z-50">
-        <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <div class="flex items-center gap-3">
-                <img src="logo.svg" alt="Logo Desa Demung" class="h-12 w-12 rounded-full">
-                <a href="#" class="logo text-2xl font-bold text-green-700">Desa Demung</a>
+    <?php 
+    if (file_exists('header.php')) { include 'header.php'; } 
+    ?>
+
+    <main class="flex-grow pt-8 pb-20 relative overflow-hidden">
+        
+        <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-emerald-50 to-transparent -z-10"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="mb-12 text-center pt-8" data-aos="fade-down">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold mb-4 tracking-wide uppercase">
+                    <i class='bx bx-target-lock'></i> Arah Gerak Desa
+                </div>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Visi & Misi</h1>
+                <p class="text-gray-500 text-lg max-w-2xl mx-auto">Cita-cita mulia dan langkah nyata Pemerintah Desa Demung dalam mewujudkan masyarakat yang madani.</p>
             </div>
-            <!-- Hamburger -->
-            <button id="navbar-toggle" type="button"
-                class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none"
-                aria-controls="navbar" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <i class='bx bx-menu text-2xl'></i>
-            </button>
-            <!-- Navbar -->
-            <nav id="navbar" class="fixed md:static top-0 left-0 w-full md:w-auto h-full md:h-auto bg-white md:bg-transparent flex-col md:flex-row gap-6 items-start md:items-center px-8 md:px-0 py-24 md:py-0 hidden md:flex transition-all z-40 md:z-auto">
-                <a href="index.php">Beranda</a>
-                <div class="relative group w-full md:w-auto">
-                    <button type="button" id="profilDropdownBtn" class="text-green-700 font-semibold" class="flex items-center gap-1 w-full md:w-auto py-2 md:py-0 focus:outline-none" aria-expanded="false">
-                        Profil Desa <i id="chevronIcon" class='bx bx-chevron-down transition-transform duration-200'></i>
-                    </button>
-                    <div id="profilDropdown" class="absolute md:absolute left-0 md:mt-2 mt-1 w-11/12 md:w-48 bg-white rounded shadow-lg opacity-0 pointer-events-none transition z-20 border border-gray-100 md:border-none mx-auto md:mx-0" style="right:0;left:0;">
-                        <a href="sejarah.php" class="block px-4 py-2 hover:bg-gray-100">Sejarah Desa</a>
-                        <a href="visi.php" class="block px-4 py-2 hover:bg-gray-100 text-green-700 font-semibold">Visi & Misi</a>
-                        <a href="perangkat.php" class="block px-4 py-2 hover:bg-gray-100">Perangkat Desa</a>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden relative" data-aos="fade-up" data-aos-delay="100">
+                
+                <div class="p-8 md:p-12 lg:p-16 relative bg-gradient-to-br from-white to-emerald-50/30">
+                    <i class='bx bxs-quote-alt-left absolute top-10 left-8 md:left-12 text-6xl text-emerald-100 opacity-60'></i>
+                    
+                    <div class="relative z-10 text-center max-w-3xl mx-auto mt-4">
+                        <h2 class="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-6">Visi Desa</h2>
+                        <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight italic">
+                            "Terwujudnya Masyarakat Desa Demung yang Beriman, Jujur, Adil, Sejahtera, Dan Berbudaya."
+                        </p>
                     </div>
                 </div>
-                <a href="potensi.php">Potensi Desa</a>
-                <a href="berita.php">Berita</a>
-                <a href="kontak.php">Kontak</a>
-                <a href="admin/login.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Login</a>
-            </nav>
-            <!-- Overlay for mobile -->
-            <div id="navbar-overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden md:hidden"></div>
-        </div>
-    </header>
 
-    <section class="py-16 bg-green-50 min-h-screen">
-        <div class="container mx-auto px-6">
-            <h1 class="text-3xl font-bold text-green-700 mb-8 text-center">Visi & Misi Desa Demung</h1>
-            <div class="bg-white rounded-lg shadow p-8 max-w-3xl mx-auto">
-                <h2 class="text-2xl font-semibold text-green-700 mb-4 text-center">Visi</h2>
-                <p class="text-gray-700 mb-8">
-                    "Terwujudnya Masyarakat Desa Demung yang Beriman, Jujur, Adil, Sejahtera, Dan Berbudaya."
-                </p>
-                <h2 class="text-2xl font-semibold text-green-700 mb-4 text-center">Misi</h2>
-                <ol class="list-decimal pl-6 text-gray-700 space-y-2">
-                    <li>Mewujudkan Sumber Daya Manusia (SDM) Beriman, Bertaqwa, Berbudi Pekerti Luhur, Bugar dan
-                        Berbudaya.</li>
-                    <li>Mewujudkan Pemerintahan Desa yang Jujur dan Berwibawa.</li>
-                    <li>Mewujudkan Sarana dan Prasarana di Desa yang Memadai.</li>
-                    <li>Mewujudkan Perekonomian Melalui Pembangunan Pertanian, Perikanan, Peternakan, Pariwisata/Budaya,
-                        dan Pengembangan Industri kecil.</li>
-                    <li>Meningkatkan Kualitas Pelayanan Kesehatan Masyarakat Desa.</li>
-                    <li>Meningkatkan Pendidikan Non Formal dan Pendidikan Formal</li>
-                    <li>Meningkatkan Tata Kelola yang Baik Dalam Memeberikan Pelayanan Kepada Masyarakat.</li>
-                    <li>Mewujudkan Keamanan Masyarakat Desa Demung</li>
-                </ol>
+                <div class="w-full flex justify-center items-center px-12">
+                    <div class="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent w-full"></div>
+                </div>
+
+                <div class="p-8 md:p-12 lg:p-16">
+                    <div class="text-center mb-10">
+                        <h2 class="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-2">Misi Desa</h2>
+                        <h3 class="text-2xl font-bold text-gray-900">Langkah Nyata Mewujudkan Visi</h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="150">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">1</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Mewujudkan Sumber Daya Manusia (SDM) Beriman, Bertaqwa, Berbudi Pekerti Luhur, Bugar dan Berbudaya.
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="200">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">2</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Mewujudkan Pemerintahan Desa yang Jujur dan Berwibawa.
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="250">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">3</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Mewujudkan Sarana dan Prasarana di Desa yang Memadai.
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="300">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">4</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Mewujudkan Perekonomian Melalui Pembangunan Pertanian, Perikanan, Peternakan, Pariwisata/Budaya, dan Pengembangan Industri kecil.
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="350">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">5</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Meningkatkan Kualitas Pelayanan Kesehatan Masyarakat Desa.
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="400">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">6</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Meningkatkan Pendidikan Non Formal dan Pendidikan Formal.
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="450">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">7</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Meningkatkan Tata Kelola yang Baik Dalam Memberikan Pelayanan Kepada Masyarakat.
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors" data-aos="fade-up" data-aos-delay="500">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg border-2 border-white shadow-sm">8</div>
+                            <p class="text-gray-700 text-lg pt-2 leading-relaxed">
+                                Mewujudkan Keamanan Masyarakat Desa Demung.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </section>
-    <footer class="bg-green-700 text-white py-8 mt-12">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <span class="font-bold">Desa Demung</span> &copy; <?= date('Y') ?>. KKN UNIVERSITAS NURUL JADID 25.
+    </main>
+
+    <footer class="bg-gray-900 text-gray-300 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <h3 class="text-white font-bold text-xl mb-1">Desa Demung</h3>
+                <p class="text-sm text-gray-400">Transparansi dan Akuntabilitas Menuju Desa Mandiri.</p>
+            </div>
+            <div class="text-sm text-gray-400 text-center">
+                &copy; <?= date('Y') ?> Pemerintah Desa Demung.<br class="md:hidden"> Didukung oleh KKN UNIVERSITAS NURUL JADID 25.
             </div>
             <div class="flex gap-4">
-                <a href="https://www.tiktok.com/@pemdes.demung?_t=ZS-8xjZ94umTDu&_r=1" class="hover:text-green-200"><i class='bx bxl-tiktok'></i></a>
-                <a href="https://www.instagram.com/demung_creative?igsh=MTZtc2pjdDM0bHpnYQ==" class="hover:text-green-200"><i class='bx bxl-instagram'></i></a>
+                <a href="https://www.tiktok.com/@pemdes.demung?_t=ZS-8xjZ94umTDu&_r=1" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-gray-900 transition-colors text-xl"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://www.instagram.com/demung_creative?igsh=MTZtc2pjdDM0bHpnYQ==" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-gray-900 transition-colors text-xl"><i class='bx bxl-instagram'></i></a>
             </div>
         </div>
     </footer>
-    <script src="script.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-        // Navbar mobile toggle
-        const navbarToggle = document.getElementById('navbar-toggle');
-        const navbar = document.getElementById('navbar');
-        const overlay = document.getElementById('navbar-overlay');
-
-        navbarToggle.addEventListener('click', () => {
-            const isOpen = navbar.classList.contains('flex');
-            if (!isOpen) {
-                navbar.classList.remove('hidden');
-                navbar.classList.add('flex');
-                overlay.classList.remove('hidden');
-            } else {
-                navbar.classList.remove('flex');
-                navbar.classList.add('hidden');
-                overlay.classList.add('hidden');
-            }
-        });
-        overlay.addEventListener('click', () => {
-            navbar.classList.remove('flex');
-            navbar.classList.add('hidden');
-            overlay.classList.add('hidden');
-        });
-        // Close navbar on link click (mobile)
-        navbar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            });
-        });
-        // Dropdown Profil Desa
-        const profilBtn = document.getElementById('profilDropdownBtn');
-        const profilDropdown = document.getElementById('profilDropdown');
-        const chevronIcon = document.getElementById('chevronIcon');
-        let dropdownOpen = false;
-
-        function openDropdown() {
-            profilDropdown.classList.remove('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.add('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.add('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'true');
-            dropdownOpen = true;
+        // Init Animation
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true, offset: 50 });
         }
-        function closeDropdown() {
-            profilDropdown.classList.add('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.remove('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.remove('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'false');
-            dropdownOpen = false;
-        }
-        function toggleDropdown(e) {
-            e.stopPropagation();
-            dropdownOpen ? closeDropdown() : openDropdown();
-        }
-        // Event handler universal (mobile & desktop)
-        profilBtn.onclick = toggleDropdown;
-        chevronIcon.onclick = toggleDropdown;
-        // Close dropdown if click outside
-        window.addEventListener('click', (e) => {
-            if (dropdownOpen && !profilDropdown.contains(e.target) && !profilBtn.contains(e.target)) {
-                closeDropdown();
-            }
-        });
-        // Close dropdown after pilih menu
-        profilDropdown.querySelectorAll('a').forEach(link => {
-            link.onclick = () => {
-                closeDropdown();
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            };
-        });
-        // Responsive: tutup dropdown saat resize
-        window.addEventListener('resize', () => {
-            closeDropdown();
-        });
     </script>
-
 </body>
-
 </html>

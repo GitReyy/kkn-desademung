@@ -57,3 +57,49 @@ CREATE TABLE elapor (
     status ENUM('belum','teratasi') DEFAULT 'belum',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Tabel Demografi Kependudukan (Demografi Mikro)
+CREATE TABLE demografi_kependudukan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tahun INT NOT NULL,
+    total_penduduk INT NOT NULL,
+    laki_laki INT NOT NULL,
+    perempuan INT NOT NULL,
+    rasio_jenis_kelamin DECIMAL(5,2),
+    tingkat_kelahiran DECIMAL(5,2),
+    tingkat_kematian DECIMAL(5,2),
+    penduduk_masuk INT DEFAULT 0,
+    penduduk_keluar INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Tabel Geospasial dan Infrastruktur Publik
+CREATE TABLE geospasial_infrastruktur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_lokasi VARCHAR(100) NOT NULL,
+    jenis_data ENUM('batas_wilayah','tata_guna_lahan','fasilitas_umum','infrastruktur') NOT NULL,
+    latitude DECIMAL(10,8),
+    longitude DECIMAL(11,8),
+    deskripsi TEXT,
+    kondisi VARCHAR(100),
+    gambar VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Tabel Sosial, Ekonomi, dan Pendidikan
+CREATE TABLE sosial_ekonomi_pendidikan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tahun INT NOT NULL,
+    kategori VARCHAR(100) NOT NULL,
+    pendapatan_rata_rata INT,
+    kepemilikan_aset VARCHAR(255),
+    desil_kemiskinan INT,
+    jumlah_termasuk_miskin INT DEFAULT 0,
+    data_detail TEXT,
+    partisipasi_sekolah_anak DECIMAL(5,2),
+    tingkat_pendidikan VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

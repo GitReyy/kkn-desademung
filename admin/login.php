@@ -1,15 +1,20 @@
 <?php
 session_start();
 include '../koneksi.php';
+
 if (isset($_SESSION['admin'])) {
     header('Location: dashboard.php');
     exit();
 }
+
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    // Gunakan real_escape_string untuk keamanan tambahan (SQL Injection dasar)
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    
     $result = mysqli_query($conn, "SELECT * FROM user WHERE username='$username' AND password='$password' LIMIT 1");
+    
     if ($row = mysqli_fetch_assoc($result)) {
         $_SESSION['admin'] = $row['username'];
         $session_id = session_id();
@@ -22,154 +27,118 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Login Admin | Desa Demung</title>
+    
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Flowbite CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-          <link rel="shortcut icon" href="../logo.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], } } }
+        }
+    </script>
+    
+    <link rel="shortcut icon" href="../logo.svg" type="image/x-icon">
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 antialiased font-sans flex flex-col min-h-screen">
 
-    <header class="header bg-white shadow sticky top-0 z-50">
-        <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <div class="flex items-center gap-3">
-                <img src="../logo.svg" alt="Logo Desa Demung" class="h-12 w-12 rounded-full">
-                <a href="../home.php" class="logo text-2xl font-bold text-green-700">Desa Demung</a>
-            </div>
-            <!-- Hamburger -->
-            <button id="navbar-toggle" type="button"
-                class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none"
-                aria-controls="navbar" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <i class='bx bx-menu text-2xl'></i>
-            </button>
-            <!-- Navbar -->
-            <nav id="navbar" class="fixed md:static top-0 left-0 w-full md:w-auto h-full md:h-auto bg-white md:bg-transparent flex-col md:flex-row gap-6 items-start md:items-center px-8 md:px-0 py-24 md:py-0 hidden md:flex transition-all z-40 md:z-auto">
-                <a href="../index.php">Beranda</a>
-                <div class="relative group w-full md:w-auto">
-                    <button type="button" id="profilDropdownBtn" class="flex items-center gap-1 w-full md:w-auto py-2 md:py-0 focus:outline-none" aria-expanded="false">
-                        Profil Desa
-                        <span class="ml-1 flex items-center">
-                            <svg id="chevronIcon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </button>
-                    <div id="profilDropdown" class="absolute md:absolute left-0 md:mt-2 mt-1 w-11/12 md:w-48 bg-white rounded shadow-lg opacity-0 pointer-events-none transition z-20 border border-gray-100 md:border-none mx-auto md:mx-0" style="right:0;left:0;">
-                        <a href="../sejarah.php" class="block px-4 py-2 hover:bg-gray-100">Sejarah Desa</a>
-                        <a href="../visi.php" class="block px-4 py-2 hover:bg-gray-100">Visi & Misi</a>
-                        <a href="../perangkat.php" class="block px-4 py-2 hover:bg-gray-100">Perangkat Desa</a>
-                    </div>
-                </div>
-                <a href="../potensi.php">Potensi Desa</a>
-                <a href="../berita.php">Berita</a>
-                <a href="../kontak.php">Kontak</a>
-                <a href="login.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Login</a>
-            </nav>
-            <!-- Overlay for mobile -->
-            <div id="navbar-overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden md:hidden"></div>
+    <header class="bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between py-3 px-6">
+            <a href="../index.php" class="flex items-center gap-2.5 group">
+                <img src="../logo.svg" alt="Logo" class="h-10 w-10 rounded-full shadow-sm">
+                <span class="text-xl font-extrabold text-emerald-700 tracking-tight">Desa Demung</span>
+            </a>
+            <a href="../index.php" class="text-sm font-semibold text-gray-500 hover:text-emerald-600 transition-colors flex items-center gap-1">
+                <i class='bx bx-arrow-back'></i> Kembali ke Web
+            </a>
         </div>
     </header>
     
-    <div class="flex justify-center items-center min-h-[60vh] px-2">
-        <div class="login-container w-full max-w-sm bg-white rounded-lg shadow-lg p-8 mt-8">
-            <h2 class="text-2xl font-bold text-green-700 mb-6 text-center">Login Admin</h2>
-            <?php if ($error) echo '<p class="error text-red-600 text-center mb-4">'.$error.'</p>'; ?>
-            <form method="post" class="relative">
-                <input type="text" name="username" placeholder="Username" required class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400"><br>
-                <input type="password" name="password" id="passwordInput" placeholder="Password" required class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400"><br>
-                <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 font-semibold transition">Login</button>
-            </form>
+    <div class="flex-grow flex items-center justify-center px-4 py-12 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]">
+        <div class="w-full max-w-md">
+            <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+                <div class="p-8 sm:p-10">
+                    <div class="text-center mb-10">
+                        <div class="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class='bx bxs-lock-alt text-4xl text-emerald-600'></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-900">Admin Panel</h2>
+                        <p class="text-gray-500 mt-1 text-sm">Masuk untuk mengelola data desa</p>
+                    </div>
+
+                    <?php if ($error): ?>
+                        <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 text-red-600 animate-pulse">
+                            <i class='bx bx-error-circle text-xl'></i>
+                            <span class="text-sm font-medium"><?= $error ?></span>
+                        </div>
+                    <?php endif; ?>
+
+                    <form method="post" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">Username</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                                    <i class='bx bx-user text-xl'></i>
+                                </div>
+                                <input type="text" name="username" required 
+                                    class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all outline-none text-sm"
+                                    placeholder="Masukkan username">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">Password</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                                    <i class='bx bx-key text-xl'></i>
+                                </div>
+                                <input type="password" name="password" id="passwordInput" required 
+                                    class="w-full pl-11 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all outline-none text-sm"
+                                    placeholder="••••••••">
+                                <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-emerald-600 transition-colors">
+                                    <i id="eyeIcon" class='bx bx-show text-xl'></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" 
+                            class="w-full bg-emerald-600 text-white py-3.5 rounded-xl font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                            Masuk Ke Dashboard <i class='bx bx-right-arrow-alt text-xl'></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="bg-gray-50 px-8 py-5 border-t border-gray-100">
+                    <p class="text-center text-xs text-gray-500">
+                        &copy; <?= date('Y') ?> Pemerintah Desa Demung. <br>
+                        Hanya untuk petugas resmi.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-        <script>
-        // Navbar mobile toggle
-        const navbarToggle = document.getElementById('navbar-toggle');
-        const navbar = document.getElementById('navbar');
-        const overlay = document.getElementById('navbar-overlay');
-
-        navbarToggle.addEventListener('click', () => {
-            const isOpen = navbar.classList.contains('flex');
-            if (!isOpen) {
-                navbar.classList.remove('hidden');
-                navbar.classList.add('flex');
-                overlay.classList.remove('hidden');
+    <script>
+        // Toggle Password Visibility
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('bx-show', 'bx-hide');
             } else {
-                navbar.classList.remove('flex');
-                navbar.classList.add('hidden');
-                overlay.classList.add('hidden');
+                input.type = 'password';
+                icon.classList.replace('bx-hide', 'bx-show');
             }
-        });
-        overlay.addEventListener('click', () => {
-            navbar.classList.remove('flex');
-            navbar.classList.add('hidden');
-            overlay.classList.add('hidden');
-        });
-        // Close navbar on link click (mobile)
-        navbar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            });
-        });
-        // Dropdown Profil Desa
-        const profilBtn = document.getElementById('profilDropdownBtn');
-        const profilDropdown = document.getElementById('profilDropdown');
-        const chevronIcon = document.getElementById('chevronIcon');
-        let dropdownOpen = false;
-
-        function openDropdown() {
-            profilDropdown.classList.remove('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.add('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.add('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'true');
-            dropdownOpen = true;
         }
-        function closeDropdown() {
-            profilDropdown.classList.add('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.remove('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.remove('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'false');
-            dropdownOpen = false;
-        }
-        function toggleDropdown(e) {
-            e.stopPropagation();
-            dropdownOpen ? closeDropdown() : openDropdown();
-        }
-        // Event handler universal (mobile & desktop)
-        profilBtn.onclick = toggleDropdown;
-        chevronIcon.onclick = toggleDropdown;
-        // Close dropdown if click outside
-        window.addEventListener('click', (e) => {
-            if (dropdownOpen && !profilDropdown.contains(e.target) && !profilBtn.contains(e.target)) {
-                closeDropdown();
-            }
-        });
-        // Close dropdown after pilih menu
-        profilDropdown.querySelectorAll('a').forEach(link => {
-            link.onclick = () => {
-                closeDropdown();
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            };
-        });
-        // Responsive: tutup dropdown saat resize
-        window.addEventListener('resize', () => {
-            closeDropdown();
-        });
     </script>
 
 </body>

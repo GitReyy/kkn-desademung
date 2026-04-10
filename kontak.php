@@ -1,239 +1,231 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontak Desa Demung</title>
+    <title>Kontak & Pengaduan | Desa Demung</title>
+    
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], } } }
+        }
+    </script>
+    
     <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-emerald-200 selection:text-emerald-900 flex flex-col min-h-screen">
+    
+    <?php 
+    if (file_exists('header.php')) { include 'header.php'; } 
+    ?>
 
-    <header class="header bg-white shadow sticky top-0 z-50">
-        <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <div class="flex items-center gap-3">
-                <img src="logo.svg" alt="Logo Desa Demung" class="h-12 w-12 rounded-full">
-                <a href="#" class="logo text-2xl font-bold text-green-700">Desa Demung</a>
-            </div>
-            <!-- Hamburger -->
-            <button id="navbar-toggle" type="button"
-                class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none"
-                aria-controls="navbar" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <i class='bx bx-menu text-2xl'></i>
-            </button>
-            <!-- Navbar -->
-            <nav id="navbar" class="fixed md:static top-0 left-0 w-full md:w-auto h-full md:h-auto bg-white md:bg-transparent flex-col md:flex-row gap-6 items-start md:items-center px-8 md:px-0 py-24 md:py-0 hidden md:flex transition-all z-40 md:z-auto">
-                <a href="index.php">Beranda</a>
-                <div class="relative group w-full md:w-auto">
-                    <button type="button" id="profilDropdownBtn" class="flex items-center gap-1 w-full md:w-auto py-2 md:py-0 focus:outline-none" aria-expanded="false">
-                        Profil Desa <i id="chevronIcon" class='bx bx-chevron-down transition-transform duration-200'></i>
-                    </button>
-                    <div id="profilDropdown" class="absolute md:absolute left-0 md:mt-2 mt-1 w-11/12 md:w-48 bg-white rounded shadow-lg opacity-0 pointer-events-none transition z-20 border border-gray-100 md:border-none mx-auto md:mx-0" style="right:0;left:0;">
-                        <a href="sejarah.php" class="block px-4 py-2 hover:bg-gray-100">Sejarah Desa</a>
-                        <a href="visi.php" class="block px-4 py-2 hover:bg-gray-100">Visi & Misi</a>
-                        <a href="perangkat.php" class="block px-4 py-2 hover:bg-gray-100">Perangkat Desa</a>
-                    </div>
-                </div>
-                <a href="potensi.php">Potensi Desa</a>
-                <a href="berita.php">Berita</a>
-                <a href="kontak.php" class="text-green-700 font-semibold">Kontak</a>
-                <a href="admin/login.php" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Login</a>
-            </nav>
-            <!-- Overlay for mobile -->
-            <div id="navbar-overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden md:hidden"></div>
-        </div>
-    </header>
-
-    <section class="py-16 bg-green-50 min-h-screen" data-aos="fade-up">
-    <div class="container mx-auto px-6">
-        <h1 class="text-3xl font-bold text-green-700 mb-8 text-center">Kontak & Lapor Desa Demung</h1>
-        <div class="w-full mx-auto bg-white rounded-lg shadow p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <!-- Form Elapor -->
-            <div data-aos="fade-right">
-                <h6 class="text-green-700 font-bold text-2xl py-4">E-LAPOR</h6>
-                <form action="admin/proses_elapor.php" method="post" enctype="multipart/form-data">
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-green-700">Nama Pelapor</label>
-                        <input type="text" name="nama_pelapor" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                            placeholder="Nama Anda">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-green-700">Foto Laporan</label>
-                        <input type="file" name="foto_laporan" accept="image/*" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-green-700">Deskripsi</label>
-                        <textarea name="deskripsi" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                            rows="5" placeholder="Tulis laporan Anda..."></textarea>
-                    </div>
-                    <button type="submit"
-                        class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 w-full">Kirim Laporan</button>
-                </form>
-            </div>
-            <div data-aos="fade-left">
-                <h6 class="text-green-700 font-bold text-2xl py-4">HUBUNGI KAMI</h6>
-                <form onsubmit="return sendToWA(event)" class="justify-items-stretch">
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-green-700">Nama</label>
-                        <input type="text" id="nama" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                            placeholder="Nama Anda">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-green-700">Email</label>
-                        <input type="email" id="email" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                            placeholder="Email Anda">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-green-700">Pesan</label>
-                        <textarea id="pesan" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                            rows="5" placeholder="Tulis pesan Anda..."></textarea>
-                    </div>
-                    <button type="submit"
-                        class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 w-full">Kirim Pesan</button>
-                </form>
-                <script>
-                    function sendToWA(e) {
-                        e.preventDefault();
-                        var nama = document.getElementById('nama').value;
-                        var email = document.getElementById('email').value;
-                        var pesan = document.getElementById('pesan').value;
-                        var no_wa = '6282322396666'; 
-                        var text = `Assalamualaikum, Saya ${nama} (${email}).%0A${pesan}`;
-                        var url = `https://wa.me/${no_wa}?text=${text}`;
-                        window.open(url, '_blank');
-                        return false;
-                    }
-                </script>
-            </div>
+    <main class="flex-grow pt-8 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-        </div>
-        <!-- Google Maps di bawah -->
-        <div class="w-full h-80 md:h-96 rounded-lg overflow-hidden shadow mt-12 transition hover:scale-105 hover:shadow-lg" data-aos="fade-up">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.590687550191!2d113.7094277735794!3d-7.726987576570314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd71efcd20d6b39%3A0xc35e4f85077c7e7d!2sKantor%20Kepala%20Desa%20Demung!5e0!3m2!1sid!2sid!4v1751357868733!5m2!1sid!2sid" 
-                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-        <div class="transition hover:scale-105 hover:shadow-lg w-full py-4 bg-white gap-8" data-aos="fade-left">
-                <div class="mb-8 text-center text-gray-600 gap-8">
-                    <div class="items-center gap-8">
-                        <span><i class='bx bx-map text-xl'></i> Alamat: Jl. Desa Demung No. 1, Kecamatan Besuki</span>
-                        <span><i class='bx bx-phone text-xl'></i> Telepon: 0812-3456-7890</span>
-                        <span><i class='bx bx-envelope text-xl'></i> Email: info@desademung.id</span>
+            <div class="mb-16 text-center" data-aos="fade-down">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold mb-4 tracking-wide uppercase">
+                    <i class='bx bxs-contact'></i> Pusat Layanan
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Kontak & Pengaduan Desa</h1>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">Sampaikan aspirasi, laporan, atau pertanyaan Anda. Kami berkomitmen untuk melayani masyarakat dengan cepat dan transparan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-10 relative overflow-hidden" data-aos="fade-right">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-bl-full -z-10"></div>
+                    
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl">
+                            <i class='bx bx-shield-quarter'></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">Portal E-Lapor</h2>
+                            <p class="text-sm text-gray-500">Laporan resmi ke sistem admin desa</p>
+                        </div>
+                    </div>
+
+                    <form action="admin/proses_elapor.php" method="post" enctype="multipart/form-data" class="space-y-5">
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Nama Lengkap</label>
+                            <input type="text" name="nama_pelapor" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors bg-gray-50 focus:bg-white"
+                                placeholder="Masukkan nama Anda">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Bukti Foto Laporan</label>
+                            <input type="file" name="foto_laporan" accept="image/*" required
+                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-colors border border-gray-200 rounded-xl cursor-pointer bg-gray-50">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Deskripsi / Detail Laporan</label>
+                            <textarea name="deskripsi" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors bg-gray-50 focus:bg-white resize-y"
+                                rows="4" placeholder="Jelaskan secara rinci laporan atau keluhan Anda..."></textarea>
+                        </div>
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-gray-900 text-white font-semibold py-3.5 rounded-xl hover:bg-emerald-600 shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class='bx bx-send text-xl'></i> Kirim Laporan Resmi
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-10 relative overflow-hidden" data-aos="fade-left">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-2xl">
+                            <i class='bx bxl-whatsapp'></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">Hubungi via WhatsApp</h2>
+                            <p class="text-sm text-gray-500">Tanya jawab cepat dengan perangkat desa</p>
+                        </div>
+                    </div>
+
+                    <form onsubmit="return sendToWA(event)" class="space-y-5">
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Nama Lengkap</label>
+                            <input type="text" id="nama" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors bg-gray-50 focus:bg-white"
+                                placeholder="Masukkan nama Anda">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Alamat Email (Opsional)</label>
+                            <input type="email" id="email" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors bg-gray-50 focus:bg-white"
+                                placeholder="contoh@email.com">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Pesan Anda</label>
+                            <textarea id="pesan" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors bg-gray-50 focus:bg-white resize-y"
+                                rows="4" placeholder="Tuliskan pertanyaan atau pesan Anda..."></textarea>
+                        </div>
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-green-500 text-white font-semibold py-3.5 rounded-xl hover:bg-green-600 shadow-md hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class='bx bxl-whatsapp text-xl'></i> Kirim Pesan ke WhatsApp
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <script>
+                        function sendToWA(e) {
+                            e.preventDefault();
+                            var nama = document.getElementById('nama').value;
+                            var email = document.getElementById('email').value;
+                            var pesan = document.getElementById('pesan').value;
+                            var no_wa = '6282322396666'; 
+                            var text = `Halo Admin Desa Demung,%0A%0APerkenalkan saya *${nama}* (${email}).%0A%0A${pesan}`;
+                            var url = `https://wa.me/${no_wa}?text=${text}`;
+                            window.open(url, '_blank');
+                            return false;
+                        }
+                    </script>
+                </div>
+                
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row" data-aos="fade-up">
+                
+                <div class="w-full md:w-3/5 h-80 md:h-auto bg-gray-200 relative group">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.5132515053744!2d113.7120027!3d-7.7269929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd71efc6b0d6b39%3A0xc35e4f85077c7e7d!2sKantor%20Kepala%20Desa%20Demung!5e0!3m2!1sid!2sid!4v1700000000000" 
+                        class="absolute inset-0 w-full h-full border-0 grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" 
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[1px]">
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=-7.7269929,113.7120027" 
+                           target="_blank" 
+                           class="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-2xl hover:bg-emerald-700 flex items-center gap-2 transform hover:scale-105 transition-all">
+                            <i class='bx bx-directions text-2xl'></i>
+                            Buka Rute Navigasi
+                        </a>
                     </div>
                 </div>
+
+                <div class="w-full md:w-2/5 p-8 md:p-10 flex flex-col justify-center bg-white">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                                <i class='bx bx-map text-xl'></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-900 mb-1">Alamat Kantor</p>
+                                <p class="text-sm text-gray-600 leading-relaxed">Jl. Desa Demung No. 1, Kecamatan Besuki, Kabupaten Situbondo, Jawa Timur</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                                <i class='bx bx-phone text-xl'></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-900 mb-1">Telepon Utama</p>
+                                <p class="text-sm text-gray-600">0812-3456-7890</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                                <i class='bx bx-envelope text-xl'></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-900 mb-1">Email Resmi</p>
+                                <p class="text-sm text-gray-600">info@desademung.id</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 md:hidden">
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=-7.7269929,113.7120027" 
+                           target="_blank" 
+                           class="w-full flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 py-3 rounded-xl font-bold border border-emerald-100 active:scale-95 transition-all">
+                            <i class='bx bx-map-pin text-xl'></i> Petunjuk Jalan
+                        </a>
+                    </div>
+                </div>
+                
             </div>
+
         </div>
-</section>
-<footer class="bg-green-700 text-white py-8 mt-12">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <span class="font-bold">Desa Demung</span> &copy; <?= date('Y') ?>. KKN UNIVERSITAS NURUL JADID 25.
+    </main>
+
+    <footer class="bg-gray-900 text-gray-300 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <h3 class="text-white font-bold text-xl mb-1">Desa Demung</h3>
+                <p class="text-sm text-gray-400">Transparansi dan Akuntabilitas Menuju Desa Mandiri.</p>
+            </div>
+            <div class="text-sm text-gray-400 text-center">
+                &copy; <?= date('Y') ?> Pemerintah Desa Demung.<br class="md:hidden"> Didukung oleh KKN UNIVERSITAS NURUL JADID 25.
             </div>
             <div class="flex gap-4">
-                <a href="https://www.tiktok.com/@pemdes.demung?_t=ZS-8xjZ94umTDu&_r=1" class="hover:text-green-200"><i class='bx bxl-tiktok'></i></a>
-                <a href="https://www.instagram.com/demung_creative?igsh=MTZtc2pjdDM0bHpnYQ==" class="hover:text-green-200"><i class='bx bxl-instagram'></i></a>
+                <a href="https://www.tiktok.com/@pemdes.demung" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-gray-900 transition-colors text-xl"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://www.instagram.com/demung_creative" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-gray-900 transition-colors text-xl"><i class='bx bxl-instagram'></i></a>
             </div>
         </div>
     </footer>
-</body>
 
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-        // Navbar mobile toggle
-        const navbarToggle = document.getElementById('navbar-toggle');
-        const navbar = document.getElementById('navbar');
-        const overlay = document.getElementById('navbar-overlay');
-
-        navbarToggle.addEventListener('click', () => {
-            const isOpen = navbar.classList.contains('flex');
-            if (!isOpen) {
-                navbar.classList.remove('hidden');
-                navbar.classList.add('flex');
-                overlay.classList.remove('hidden');
-            } else {
-                navbar.classList.remove('flex');
-                navbar.classList.add('hidden');
-                overlay.classList.add('hidden');
-            }
-        });
-        overlay.addEventListener('click', () => {
-            navbar.classList.remove('flex');
-            navbar.classList.add('hidden');
-            overlay.classList.add('hidden');
-        });
-        // Close navbar on link click (mobile)
-        navbar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            });
-        });
-        // Dropdown Profil Desa
-        const profilBtn = document.getElementById('profilDropdownBtn');
-        const profilDropdown = document.getElementById('profilDropdown');
-        const chevronIcon = document.getElementById('chevronIcon');
-        let dropdownOpen = false;
-
-        function openDropdown() {
-            profilDropdown.classList.remove('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.add('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.add('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'true');
-            dropdownOpen = true;
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true, offset: 50 });
         }
-        function closeDropdown() {
-            profilDropdown.classList.add('opacity-0', 'pointer-events-none');
-            profilDropdown.classList.remove('opacity-100', 'pointer-events-auto');
-            chevronIcon.classList.remove('rotate-180');
-            profilBtn.setAttribute('aria-expanded', 'false');
-            dropdownOpen = false;
-        }
-        function toggleDropdown(e) {
-            e.stopPropagation();
-            dropdownOpen ? closeDropdown() : openDropdown();
-        }
-        // Event handler universal (mobile & desktop)
-        profilBtn.onclick = toggleDropdown;
-        chevronIcon.onclick = toggleDropdown;
-        // Close dropdown if click outside
-        window.addEventListener('click', (e) => {
-            if (dropdownOpen && !profilDropdown.contains(e.target) && !profilBtn.contains(e.target)) {
-                closeDropdown();
-            }
-        });
-        // Close dropdown after pilih menu
-        profilDropdown.querySelectorAll('a').forEach(link => {
-            link.onclick = () => {
-                closeDropdown();
-                if (window.innerWidth < 768) {
-                    navbar.classList.remove('flex');
-                    navbar.classList.add('hidden');
-                    overlay.classList.add('hidden');
-                }
-            };
-        });
-        // Responsive: tutup dropdown saat resize
-        window.addEventListener('resize', () => {
-            closeDropdown();
-        });
-        AOS.init();
     </script>
-
+</body>
 </html>

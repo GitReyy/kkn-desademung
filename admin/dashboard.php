@@ -1,100 +1,111 @@
 <?php
 session_start();
+
+// Proteksi Autentikasi
 if (!isset($_SESSION['admin'])) {
     header('Location: login.php');
     exit();
 }
-$page = isset($_GET['page']) ? $_GET['page'] : 'berita';
+
+// Router Aman (Mencegah Local File Inclusion & Lebih Rapi dari If-Else)
+$allowed_pages = [
+    'berita'    => 'berita_crud.php',
+    'user'      => 'user_crud.php',
+    'anggota'   => 'anggota_crud.php',
+    'produk'    => 'produk_crud.php',
+    'wisata'    => 'wisata_crud.php',
+    'statistik' => 'statistik_crud.php',
+    'stats'     => 'stats.php',
+    'elapor'    => 'elapor.php'
+];
+
+// Definisi Judul Halaman Otomatis
+$page_titles = [
+    'berita'    => 'Manajemen Berita',
+    'user'      => 'Manajemen Pengguna',
+    'anggota'   => 'Perangkat Desa',
+    'produk'    => 'UMKM & Produk',
+    'wisata'    => 'Destinasi Wisata',
+    'statistik' => 'Data Statistik',
+    'stats'     => 'Dashboard Analitik',
+    'elapor'    => 'Laporan Masyarakat'
+];
+
+$current_page = $_GET['page'] ?? 'berita';
+
+// Fallback jika halaman tidak valid / ada yang iseng mengubah URL
+if (!array_key_exists($current_page, $allowed_pages)) {
+    $current_page = 'berita';
+}
+
+$file_to_include = $allowed_pages[$current_page];
+$page_title = $page_titles[$current_page];
+
+// Include Admin Header (Sidebar, Topbar, Tag Head)
+include 'header_admin.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-       <link rel="shortcut icon" href="../logo.svg" type="image/x-icon">
-</head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Responsive Navbar -->
-    <nav class="bg-green-700 text-white px-4 py-3 flex items-center justify-between md:hidden sticky top-0 z-50">
-        <div class="font-bold text-lg">Admin Panel</div>
-        <button id="adminNavToggle" class="focus:outline-none">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </nav>
-    <div class="flex flex-col md:flex-row">
-        <!-- Sidebar -->
-        <aside class="hidden md:block bg-green-700 text-white w-full md:w-56 min-h-screen px-4 py-6 md:sticky md:top-0">
-            <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
-            <ul class="space-y-2 font-semibold">
-                <li><a href="?page=stats" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'stats' ? 'bg-green-800' : '' ?>">Dashboard</a></li>               
-                <li><a href="?page=user" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'user' ? 'bg-green-800' : '' ?>">User</a></li>               
-                <li><a href="?page=berita" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'berita' ? 'bg-green-800' : '' ?>">Berita</a></li>
-                <li><a href="?page=anggota" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'anggota' ? 'bg-green-800' : '' ?>">Anggota</a></li>
-                <li><a href="?page=produk" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'produk' ? 'bg-green-800' : '' ?>">Produk</a></li>
-                <li><a href="?page=wisata" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'wisata' ? 'bg-green-800' : '' ?>">Wisata</a></li>
-                <li><a href="?page=elapor" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'elapor' ? 'bg-green-800' : '' ?>">Elapor</a></li>
-                <li><a href="logout.php" class="block py-2 px-3 rounded hover:bg-red-700 text-red-200">Logout</a></li>
-            </ul>
-        </aside>
-        <!-- Mobile Menu -->
-        <ul id="adminNavMobile" class="md:hidden fixed top-9 left-0 w-3/4 max-w-xs h-full bg-green-700 text-white z-40 px-6 py-8 space-y-3 transform -translate-x-full transition-transform duration-200">
-            <li><a href="?page=stats" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'stats' ? 'bg-green-800' : '' ?>">Dashboard</a></li>    
-            <li><a href="?page=user" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'user' ? 'bg-green-800' : '' ?>">User</a></li>            
-            <li><a href="?page=berita" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'berita' ? 'bg-green-800' : '' ?>">Berita</a></li>
-            <li><a href="?page=anggota" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'anggota' ? 'bg-green-800' : '' ?>">Anggota</a></li>
-            <li><a href="?page=produk" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'produk' ? 'bg-green-800' : '' ?>">Produk</a></li>
-            <li><a href="?page=wisata" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'wisata' ? 'bg-green-800' : '' ?>">Wisata</a></li>
-            <li><a href="?page=elapor" class="block py-2 px-3 rounded hover:bg-green-800 <?= $page === 'elapor' ? 'bg-green-800' : '' ?>">Elapor</a></li>
-            <li><a href="logout.php" class="block py-2 px-3 rounded hover:bg-red-700 text-red-200">Logout</a></li>
-        </ul>
-        <!-- Overlay for mobile menu -->
-        <div id="adminNavOverlay" class="md:hidden fixed inset-0 bg-black bg-opacity-40 z-30 hidden"></div>
-        <!-- Main Content -->
-        <main class="flex-1 p-2 sm:p-4 md:p-8 transition-all duration-200">
-            <?php
-            if ($page === 'user') {
-                include 'user_crud.php';          
-            } elseif ($page === 'berita') {
-                include 'berita_crud.php';
-            } elseif ($page === 'anggota') {
-                include 'anggota_crud.php';
-            } elseif ($page === 'produk') {
-                include 'produk_crud.php';
-            } elseif ($page === 'wisata') {
-                include 'wisata_crud.php';
-            } elseif ($page === 'stats') {
-                include 'stats.php';
-            } elseif ($page === 'elapor') {
-                include 'elapor.php';
-            }
-            ?>
-        </main>
+
+<main class="flex-1 bg-gray-50 min-h-screen transition-all duration-300 ease-in-out flex flex-col">
+    
+    <div class="bg-white border-b border-gray-100 px-6 sm:px-8 py-5 shadow-sm sticky top-0 z-30">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 tracking-tight"><?php echo $page_title; ?></h1>
+                <div class="text-xs sm:text-sm text-gray-500 font-medium flex items-center gap-2 mt-1.5 uppercase tracking-wide">
+                    <i class='bx bx-home-alt text-gray-400'></i> Admin Panel 
+                    <i class='bx bx-chevron-right text-gray-300'></i> 
+                    <span class="text-emerald-600 font-bold"><?php echo $page_title; ?></span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-2 bg-gray-50 border border-gray-200 px-4 py-2 rounded-lg text-sm text-gray-600 font-medium">
+                <i class='bx bx-calendar text-emerald-600 text-lg'></i>
+                <?php 
+                    setlocale(LC_TIME, 'id_ID.utf8', 'id_ID', 'indonesian');
+                    echo date('d F Y'); 
+                ?>
+            </div>
+        </div>
     </div>
-    <script>
-    // Hamburger menu logic
-    const navToggle = document.getElementById('adminNavToggle');
-    const navMobile = document.getElementById('adminNavMobile');
-    const navOverlay = document.getElementById('adminNavOverlay');
-    navToggle && navToggle.addEventListener('click', () => {
-        navMobile.classList.toggle('-translate-x-full');
-        navOverlay.classList.toggle('hidden');
-    });
-    navOverlay && navOverlay.addEventListener('click', () => {
-        navMobile.classList.add('-translate-x-full');
-        navOverlay.classList.add('hidden');
-    });
-    // Close mobile menu on link click
-    navMobile && navMobile.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMobile.classList.add('-translate-x-full');
-            navOverlay.classList.add('hidden');
-        });
-    });
-    </script>
-</body>
-</html>
+
+    <div class="p-4 sm:p-6 lg:p-8 flex-grow animate-fade-in-up">
+        <?php
+        // Memuat file modul CRUD sesuai request
+        if (file_exists($file_to_include)) {
+            include $file_to_include;
+        } else {
+            // Tampilan Error 404 Estetik jika file fisiknya terhapus/hilang
+            echo '
+            <div class="bg-white rounded-3xl shadow-sm border border-dashed border-red-300 p-12 flex flex-col items-center justify-center text-center max-w-2xl mx-auto mt-10">
+                <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-4xl mb-4">
+                    <i class="bx bx-error"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Modul Tidak Ditemukan</h2>
+                <p class="text-gray-500 mb-6">File sistem untuk fitur ini tidak tersedia atau telah dipindahkan.</p>
+                <code class="bg-gray-100 text-red-600 font-mono px-4 py-2 rounded-lg text-sm border border-gray-200">Error: Missing '.$file_to_include.'</code>
+            </div>';
+        }
+        ?>
+    </div>
+</main>
+
+<style>
+    .animate-fade-in-up {
+        animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<?php 
+// Include Admin Footer
+include 'footer_admin.php'; 
+?>
