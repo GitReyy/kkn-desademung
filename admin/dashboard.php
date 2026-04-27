@@ -3,7 +3,7 @@ session_start();
 
 // Proteksi Autentikasi
 if (!isset($_SESSION['admin'])) {
-    header('Location: login.php');
+    header('Location: login');
     exit();
 }
 

@@ -8,6 +8,8 @@ $db   = 'desademung';
 $conn = mysqli_connect($host, $user, $pass, $db);
 
 if (!$conn) {
-    die('Koneksi ke database gagal: ' . mysqli_connect_error());
+    // Tampilkan error tapi jangan stop halaman sepenuhnya
+    error_log('Database Connection Error: ' . mysqli_connect_error());
+    $conn = null; // Set null agar bisa dicek dengan isset()
 }
 ?>

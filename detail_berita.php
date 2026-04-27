@@ -3,7 +3,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'koneksi.php';
+$koneksiPath = __DIR__ . '/koneksi.php';
+if (!file_exists($koneksiPath)) {
+    die('Error: koneksi.php tidak ditemukan di ' . __DIR__);
+}
+require_once $koneksiPath;
 
 // Helper function untuk keamanan XSS
 if (!function_exists('e')) {
@@ -69,7 +73,14 @@ if (mysqli_num_rows($berita_lain) == 0) {
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased selection:bg-emerald-200 selection:text-emerald-900 flex flex-col min-h-screen">
     
-    <?php if (file_exists('header.php')) { include 'header.php'; } ?>
+    <?php 
+    $headerPath = __DIR__ . '/header.php';
+    if (file_exists($headerPath)) { 
+        include $headerPath; 
+    } else {
+        die('Error: header.php tidak ditemukan di ' . __DIR__);
+    }
+    ?>
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
         

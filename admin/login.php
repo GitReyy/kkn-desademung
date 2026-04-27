@@ -3,7 +3,7 @@ session_start();
 include '../koneksi.php';
 
 if (isset($_SESSION['admin'])) {
-    header('Location: dashboard.php');
+    header('Location: dashboard');
     exit();
 }
 

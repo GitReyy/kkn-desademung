@@ -1,3 +1,10 @@
+<?php
+// Error reporting untuk development
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Koneksi tidak diperlukan untuk halaman kontak, tapi jika ada error di header, kita beri tau jelas
+?>
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 
@@ -28,7 +35,12 @@
 <body class="bg-gray-50 text-gray-800 antialiased selection:bg-emerald-200 selection:text-emerald-900 flex flex-col min-h-screen">
     
     <?php 
-    if (file_exists('header.php')) { include 'header.php'; } 
+    $headerPath = __DIR__ . '/header.php';
+    if (file_exists($headerPath)) { 
+        include $headerPath; 
+    } else {
+        die('Error: header.php tidak ditemukan di ' . __DIR__);
+    }
     ?>
 
     <main class="flex-grow pt-8 pb-20">

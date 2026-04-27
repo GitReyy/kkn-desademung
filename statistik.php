@@ -3,7 +3,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'koneksi.php';
+$koneksiPath = __DIR__ . '/koneksi.php';
+if (!file_exists($koneksiPath)) {
+    die('Error: koneksi.php tidak ditemukan di ' . __DIR__);
+}
+require_once $koneksiPath;
 
 $tables_check = [
     'demografi_kependudukan',
@@ -110,10 +114,11 @@ foreach ($geospasial_data as $item) {
 <body class="bg-gray-50 text-gray-800 antialiased selection:bg-green-200 selection:text-green-900">
     
     <?php 
-    if (file_exists('header.php')) {
-        include 'header.php'; 
+    $headerPath = __DIR__ . '/header.php';
+    if (file_exists($headerPath)) {
+        include $headerPath; 
     } else {
-        echo '<div class="bg-red-100 text-red-700 p-3 text-center text-sm font-semibold">Peringatan: File header.php tidak ditemukan!</div>';
+        die('Error: header.php tidak ditemukan di ' . __DIR__);
     }
     ?>
 
